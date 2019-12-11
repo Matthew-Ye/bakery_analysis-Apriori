@@ -16,6 +16,8 @@ It is written in python ver. 3.7.0. See the plan by `jupyter notebook` and choos
 Document and plan is in ./docs/Bakery Project Report.pdf. Please check them for further details.
 
 ## Structure
+
+```
 .
 ├── README.md
 ├── docs
@@ -33,5 +35,5 @@ Document and plan is in ./docs/Bakery Project Report.pdf. Please check them for 
 ​    ├── bread.py
 ​    └── input
 ​        └── BreadBasket_DMS.csv
-
+```
 
