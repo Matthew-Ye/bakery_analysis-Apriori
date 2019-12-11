@@ -1,0 +1,840 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Bakery Project Report}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{verbatim}
+Authors:    Mingjie Ye, yemj1017@gmail.com, (+34)658745860
+            Luqi Guan, estela96guan@gmail.com, (+34)655061067
+\end{verbatim}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Every businessmen including this bakery desire higher profits. There are
+two ways to gain profits: increasing revenues and decreasing expenses.
+Considering the relatively low-cost products, it is better to increase
+the sales by setting competitive prices in order to increase revenues.
+Given the dataset of transactions of a bakery from 30/10/2016 to
+09/04/2017, we set our business goals, do analysis and data mining,
+therefore propose some advisable staregies according to the results.
+Finally, we estimate the increaced profits and loss based on hypothesis
+because do not have enough information about the bakery except
+transactions.
+
+    \hypertarget{business-goal}{%
+\section{Business goal}\label{business-goal}}
+
+The utimate goal of the bakery is to increase profits, namely to
+increase revenues and to reduce expenses. In order to raise revenues, we
+decide to boost sales rather than increasing prices because the products
+such as bread and coffee are price-sensitive. Details about our
+strategies will be illustrated in the analysis part below.
+
+    \hypertarget{data-analysis-and-business-strategies}{%
+\section{Data analysis and business
+strategies}\label{data-analysis-and-business-strategies}}
+
+We choose python as our analysis tool because of the following reasons:
+1. This is not a big data problem, the scale of data is acceptable with
+python. So we don't need big data tools in this project. 2. The
+significant factor of choosing Python is the variety of data science
+libraries such as pandas, numpy, matplotlib and seaborn. 3. The
+widespread and involved community promotes easy access for us to find
+different solutions of similar problems. 4. Data visualization in python
+is beautiful and easy to operate. 5. We are familiar with python.
+
+    \hypertarget{inspect-our-dataset}{%
+\subsection{Inspect our dataset}\label{inspect-our-dataset}}
+
+Import libraries and files as Bak. See the structure and head.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} linear algebra}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} \PY{c+c1}{\PYZsh{} data processing, CSV file I/O (e.g. pd.read\PYZus{}csv)}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{c+c1}{\PYZsh{} import the data}
+         \PY{n}{Bak}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./input/BreadBasket\PYZus{}DMS.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{Bak}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}          Date      Time  Transaction           Item
+         0  2016-10-30  09:58:11            1          Bread
+         1  2016-10-30  10:05:34            2   Scandinavian
+         2  2016-10-30  10:05:34            2   Scandinavian
+         3  2016-10-30  10:07:57            3  Hot chocolate
+         4  2016-10-30  10:07:57            3            Jam
+\end{Verbatim}
+            
+    Drop NONE values and create new columns representing Year, Month, Day
+and Hour by Column ``Date''. New head is showed below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Inspect the data}
+         \PY{n}{Bak}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n}{Bak}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Drop none values from the dataset}
+         \PY{n}{Bak}\PY{o}{=}\PY{n}{Bak}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{Bak}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NONE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Bak}\PY{o}{.}\PY{n}{Date}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Bak}\PY{o}{.}\PY{n}{Date}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{Bak}\PY{o}{.}\PY{n}{Date}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}\PY{n}{Bak}\PY{o}{.}\PY{n}{Time}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}df = df.drop(columns=\PYZsq{}Time\PYZsq{})}
+         \PY{n}{Bak}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}          Date      Time  Transaction           Item  Year Month Day  Hour
+         0  2016-10-30  09:58:11            1          Bread  2016    10  30     9
+         1  2016-10-30  10:05:34            2   Scandinavian  2016    10  30    10
+         2  2016-10-30  10:05:34            2   Scandinavian  2016    10  30    10
+         3  2016-10-30  10:07:57            3  Hot chocolate  2016    10  30    10
+         4  2016-10-30  10:07:57            3            Jam  2016    10  30    10
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total number of Items sold at the bakery is:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ten Most Sold Items At The Bakery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Total number of Items sold at the bakery is: 94
+Ten Most Sold Items At The Bakery
+Coffee           5471
+Bread            3325
+Tea              1435
+Cake             1025
+Pastry            856
+Sandwich          771
+Medialuna         616
+Hot chocolate     590
+Cookies           540
+Brownie           379
+Name: Item, dtype: int64
+
+    \end{Verbatim}
+
+    Show the barplot of 20 most sold items at the Bakery. We could find that
+coffee is the most popular item followed by bread, tea and cake.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of transactions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20 Most Sold Items at the Bakery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ioff}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{transactions-per-hour}{%
+\subsection{Transactions per hour}\label{transactions-per-hour}}
+
+As the barplot of transactions per hour, we could find that the
+transactions generally happen between 8:00 and 18:00, especially around
+11 O'clock. It is easy to be explained because people tend to buy the
+items at the bakery in the morning and at noon.
+
+Therefore, we could propose our first strategy: \textbf{Open hours of
+the bakery could be reduced to 8:00 - 18:00 so that expenses will
+decrease. Less employee are required after 16:00.} On the other hand, if
+the boss of the bakery don't want close the store so early and is
+willing to expand business, \textbf{Offering more types of products
+which are popular after 18:00 such as salad, beef, noodles, hamburgers
+is another reasonable option.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{c+c1}{\PYZsh{} use sns to plot the counts bar}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transactions per hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{trans\PYZus{}hour} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{Bak}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{transactions-per-month}{%
+\subsection{Transactions per month}\label{transactions-per-month}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Bak}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+       Date  Time  Transaction  Item  Year  Month  Day  Hour
+Month                                                       
+01       30  1531         1575    49     1      1   30    14
+02       28  1591         1630    50     1      1   28    15
+03       31  1713         1764    52     1      1   31    11
+04        9   502          509    49     1      1    9    14
+10        2   175          175    30     1      1    2    10
+11       30  2069         2140    58     1      1   30    14
+12       29  1633         1672    45     1      1   29    14
+
+    \end{Verbatim}
+
+    By checking the information of every months, we know the counts of
+transactions and Days. Then we draw the barplot of transactions per
+month. Because of the date of this dataset is from 30/10/2016 to
+09/04/2017, April and October are incomplete and considered to be
+outliers. There are only 9 days' records available in April and 2 in
+October.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Months}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of transactions per month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transactions per month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{Month\PYZus{}counts} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{Bak}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Considering the number of days in different months, we draw a new plot
+of transactions per day in different months by dividing the total counts
+by number of days. As the figure showed below, we could see that the
+numbers of transactions per day in these months are very close except
+October and November. The number in October is the largest but there are
+only two days's records and the confidence we think is low. So October
+is still a outlier in this figure. However, sales per day in November is
+obviously larger than others, which means people are more willing to buy
+something in bakery in November. Therefore, we think \textbf{more
+activities or discounts could come up in this month to attract more
+customers}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{c+c1}{\PYZsh{} caculate de transactions per day in every months}
+          \PY{n}{list\PYZus{}trans} \PY{o}{=} \PY{n}{Bak}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+          \PY{n}{list\PYZus{}days} \PY{o}{=} \PY{n}{Bak}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+          \PY{n}{list\PYZus{}trans\PYZus{}per\PYZus{}day} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{o}{/} \PY{n}{y} \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{list\PYZus{}trans}\PY{p}{,} \PY{n}{list\PYZus{}days}\PY{p}{)}\PY{p}{]}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{list\PYZus{}trans\PYZus{}per\PYZus{}day}\PY{p}{)}
+          \PY{n}{months} \PY{o}{=} \PY{n}{Bak}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{Month}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Month} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{months}\PY{p}{,}\PY{n}{list\PYZus{}trans\PYZus{}per\PYZus{}day}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Months}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of transactions per day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of transactions per day in different months}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[52.5, 58.214285714285715, 56.903225806451616, 56.55555555555556, 87.5, 71.33333333333333, 57.6551724137931]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{sales-on-different-days-of-the-week}{%
+\subsection{Sales on different days of the
+week}\label{sales-on-different-days-of-the-week}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{c+c1}{\PYZsh{} Sales on different days of the week}
+          \PY{n}{Bak1} \PY{o}{=} \PY{n}{Bak}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{Bak1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{Bak1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{day\PYZus{}name}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{=}\PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{Bak1}\PY{p}{,}\PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the Week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sales on Different Days of Week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ioff}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The figure shows the difference among days of week. Obviously, sales on
+weekend is much higher than weekday. As for weekdays, the items sell the
+most on Friday. This is because people have more times and willings to
+shop on these days. In order to increase sales, we could draw our
+strategies from two perspectives: \textbf{1. In order to increase the
+sales on weekday, we could provide more combos for the staff of
+surrounding companies; 2. In order to increase the sales on weekend, we
+could offer customers promotional activities, special offers or trial
+offers.}
+
+    \hypertarget{apriori-algorithm}{%
+\subsection{Apriori Algorithm}\label{apriori-algorithm}}
+
+In order to find the association rules of items in the bakery, we use
+apriori algorithm with the help of python package mlxtend.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{c+c1}{\PYZsh{} apriori}
+          \PY{k+kn}{from} \PY{n+nn}{mlxtend}\PY{n+nn}{.}\PY{n+nn}{frequent\PYZus{}patterns} \PY{k}{import} \PY{n}{apriori}\PY{p}{,} \PY{n}{association\PYZus{}rules}
+          \PY{c+c1}{\PYZsh{} transfrom data to make items as columns and each transaction as a row and count same Items bought in one transaction but fill other cloumns of the row with 0 to represent item which are not bought.}
+          \PY{n}{hot\PYZus{}encoded\PYZus{}Bak}\PY{o}{=}\PY{n}{Bak}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{hot\PYZus{}encoded\PYZus{}Bak}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+          \PY{n}{hot\PYZus{}encoded\PYZus{}Bak} \PY{o}{=} \PY{n}{hot\PYZus{}encoded\PYZus{}Bak}\PY{o}{.}\PY{n}{applymap}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{0} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{0} \PY{k}{else} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} here we choose the min support as 1\PYZpc{}}
+          \PY{n}{frequent\PYZus{}itemsets} \PY{o}{=} \PY{n}{apriori}\PY{p}{(}\PY{n}{hot\PYZus{}encoded\PYZus{}Bak}\PY{p}{,} \PY{n}{min\PYZus{}support}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{use\PYZus{}colnames}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{rules} \PY{o}{=} \PY{n}{association\PYZus{}rules}\PY{p}{(}\PY{n}{frequent\PYZus{}itemsets}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{min\PYZus{}threshold}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{rules}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}139}]:}        antecedents      consequents  antecedent support  consequent support  \textbackslash{}
+          0      (Alfajores)         (Coffee)            0.036344            0.478394   
+          1         (Coffee)      (Alfajores)            0.478394            0.036344   
+          2          (Bread)         (Pastry)            0.327205            0.086107   
+          3         (Pastry)          (Bread)            0.086107            0.327205   
+          4         (Coffee)        (Brownie)            0.478394            0.040042   
+          5        (Brownie)         (Coffee)            0.040042            0.478394   
+          6         (Coffee)           (Cake)            0.478394            0.103856   
+          7           (Cake)         (Coffee)            0.103856            0.478394   
+          8  (Hot chocolate)           (Cake)            0.058320            0.103856   
+          9           (Cake)  (Hot chocolate)            0.103856            0.058320   
+          
+              support  confidence      lift  leverage  conviction  
+          0  0.019651    0.540698  1.130235  0.002264    1.135648  
+          1  0.019651    0.041078  1.130235  0.002264    1.004936  
+          2  0.029160    0.089119  1.034977  0.000985    1.003306  
+          3  0.029160    0.338650  1.034977  0.000985    1.017305  
+          4  0.019651    0.041078  1.025860  0.000495    1.001080  
+          5  0.019651    0.490765  1.025860  0.000495    1.024293  
+          6  0.054728    0.114399  1.101515  0.005044    1.011905  
+          7  0.054728    0.526958  1.101515  0.005044    1.102664  
+          8  0.011410    0.195652  1.883874  0.005354    1.114125  
+          9  0.011410    0.109868  1.883874  0.005354    1.057910  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{rules}\PY{p}{[} \PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lift}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{1.15}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{confidence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)} \PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}143}]:}          antecedents consequents  antecedent support  consequent support  \textbackslash{}
+          18       (Medialuna)    (Coffee)            0.061807            0.478394   
+          23          (Pastry)    (Coffee)            0.086107            0.478394   
+          29  (Spanish Brunch)    (Coffee)            0.018172            0.478394   
+          31           (Toast)    (Coffee)            0.033597            0.478394   
+          
+               support  confidence      lift  leverage  conviction  
+          18  0.035182    0.569231  1.189878  0.005614    1.210871  
+          23  0.047544    0.552147  1.154168  0.006351    1.164682  
+          29  0.010882    0.598837  1.251766  0.002189    1.300235  
+          31  0.023666    0.704403  1.472431  0.007593    1.764582  
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Support is an indication of how frequently the item set appears in the
+  data set. \[supp(X⇒Y)=\frac{|X \cup Y|}{N}\] N means the total number
+  of transactions. Obviously, the more support is, the more useful the
+  rule is. However, considering so many types of items and huge scale of
+  transactions in this bakery, the support in our case is relatively low
+  and we need to find an optimal min\_support. If we set the threshold
+  too low, we will get a lot of rules and most of them are not so
+  valuable. If we set thethreshold too high, only few rules are
+  available. In order to find the most several valuable rules, we set
+  our threshold as 1\%.
+\item
+  For a rule X⇒Y, \textbf{confidence} shows the percentage in which Y is
+  bought with X. It's an indication of how often the rule has been found
+  to be true. It tells us how likely it is that purchasing X results in
+  a purchase of Y. \[conf(X⇒Y)=\frac{supp(X \cup Y)}{supp(X)}\] In our
+  case, we only accept the rules whose confidences are no less than
+  50\%.
+\item
+  Lift means how likely item Y is purchased when item X is purchased.
+  \[lift(X⇒Y)=\frac{supp(X \cup Y)}{supp(X) supp(Y)}\] A Lift of 1 means
+  there is no association between products X and Y. Lift of greater than
+  1 means products X and Y are more likely to be bought together.
+  Finally, Lift of less than 1 refers to the case where two products are
+  unlikely to be bought together. Here, we choose 1.15 as threshold.
+  Finally, we get 4 important rules. Therefore, we could \textbf{use
+  these association rules by providing menu combo with these two items
+  such as morning combo with toast and a cup of coffee}.
+\end{itemize}
+
+If this combo strategy works well, it could be expanded with more
+association rules as the following shows.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{rules}\PY{p}{[} \PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lift}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{1.1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{confidence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)} \PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}147}]:}          antecedents consequents  antecedent support  consequent support  \textbackslash{}
+          0        (Alfajores)    (Coffee)            0.036344            0.478394   
+          7             (Cake)    (Coffee)            0.103856            0.478394   
+          16           (Juice)    (Coffee)            0.038563            0.478394   
+          18       (Medialuna)    (Coffee)            0.061807            0.478394   
+          23          (Pastry)    (Coffee)            0.086107            0.478394   
+          24        (Sandwich)    (Coffee)            0.071844            0.478394   
+          29  (Spanish Brunch)    (Coffee)            0.018172            0.478394   
+          31           (Toast)    (Coffee)            0.033597            0.478394   
+          
+               support  confidence      lift  leverage  conviction  
+          0   0.019651    0.540698  1.130235  0.002264    1.135648  
+          7   0.054728    0.526958  1.101515  0.005044    1.102664  
+          16  0.020602    0.534247  1.116750  0.002154    1.119919  
+          18  0.035182    0.569231  1.189878  0.005614    1.210871  
+          23  0.047544    0.552147  1.154168  0.006351    1.164682  
+          24  0.038246    0.532353  1.112792  0.003877    1.115384  
+          29  0.010882    0.598837  1.251766  0.002189    1.300235  
+          31  0.023666    0.704403  1.472431  0.007593    1.764582  
+\end{Verbatim}
+            
+    \hypertarget{sales-by-hour-for-top-10-items}{%
+\subsection{Sales by hour for top 10
+items}\label{sales-by-hour-for-top-10-items}}
+
+We have analysed the total transactions per hour above. Now we will
+analyse this problem in different items. According to the \emph{`Figure:
+20 Most Sold Items at the Bakery'}, the total sales mainly remain in the
+top 10 items, especially the top two items (coffee and bread).
+
+The below figure shows the sales by hour for top 10 items. We could find
+that the peaks of these items are different: 1. Some items have two
+peaks, while others have only one peak or the second peaks are not
+obvious; 2. The two peaks generally have the same moments. The first is
+approximately between 9:00 and 12:00; The second is around 13:00 to
+16:00. Combined with the practical situation, it is easy to be explained
+that these two peaks are exactly the time of brunch and afternoon tea.
+Therefore, we define these two times as brunch time and afternoon tea
+time. 3. The items having two peaks (defined as Two-peak Item) are:
+coffee, brownie, Cookies and hot chocolate. 4. The items having brunch
+time peaks (defined as First-peak Item) are: bread, medialuna and
+pastry. 5. The items having afternoon tea time peaks (defined as
+Second-peak Item) are: cake, sandwich and tea.
+
+The classification of items support our explanation. Bread, medialuna
+and pastry sell well at brunch time. Cake, sandwich and tea sell well in
+the afternoon. And the sales of coffee, brownie, cookies and hot
+chocolate reach the peaks at both of the times. These results conform to
+our real business.
+
+Inspired by the results and conclusion, we could propose some
+suggestions to increase the sales:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Rearrange the positions of different items in the right time.
+  For example, at brunch time (9:00-12:00) salesman or saleswoman could
+  place more First-peak Items and Two-peak Items while less Second-peak
+  Items.}
+\item
+  \textbf{Produce different items in the right time. This is similar
+  with the suggestion 1. Because First-peak Items and Two-peak Items
+  sell better at brunch time, it is sensible to produce more these items
+  and less Second-peak Items at brunch time.}
+\item
+  \textbf{Give a discount to First-peak Items or place them into combo
+  with other items in the afternoon to ensure that all of the items are
+  sold this day. Because the sales decrease after the first peak
+  according to the figure.}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{n}{Top\PYZus{}items}\PY{o}{=}\PY{n}{Bak}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+          \PY{n}{Hour\PYZus{}by\PYZus{}Item}\PY{o}{=}\PY{n}{Bak}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ticklabel\PYZus{}format}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sale by Hour for Top 10 Items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transaction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{Hour\PYZus{}by\PYZus{}Item}\PY{p}{[}\PY{n}{Hour\PYZus{}by\PYZus{}Item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{Top\PYZus{}items}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{summary}{%
+\section{Summary}\label{summary}}
+
+In this project, we set our business goal as `Increase profits'. There
+are two ways: increasing revenues and reducing expenses. Increasing
+revenues will be the mainly approach. Considering the business pattern
+and low-cost items in bakery, the way to increase revenues is mainly by
+increasing sales.
+
+Given the dataset, we chose python as our data analysis and data mining
+tools, then analysed the transactions per hour, transactions per month
+and sales on different days of the week. Plenty of valuable strategies
+were proposed with the analysis. In order to check if there is any
+association rules, we used apriori algorithm and got some rules followed
+one strategy. Finally, we came into different items to see the sales of
+them in different hours. The difference among variable items were
+obvious, so we classified them into three different categories based on
+the peak of sales curve: Two-peak Item, First-peak Item and Second-peak
+Item. Meanwhile several detailed suggestions were proposed.
+
+All the \textbf{10 strategies} we proposed in this project are as
+follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Open hours of the bakery could be reduced to 8:00 - 18:00 so
+  that expenses will decrease.}
+\item
+  \textbf{Less employee are required after 16:00.}
+\item
+  \textbf{If the boss of the bakery don't want close the store so early
+  and is willing to expand business, Offering more types of products
+  which are popular after 18:00 such as salad, beef, noodles, hamburgers
+  is another reasonable option.}
+\item
+  \textbf{More activities or discounts could come up in November to
+  attract more customers.}
+\item
+  \textbf{In order to increase the sales on weekday, we could provide
+  more combos for the staff of surrounding companies.}
+\item
+  \textbf{In order to increase the sales on weekend, we could offer
+  customers promotional activities, special offers or trial offers.}
+\item
+  \textbf{Use the listed association rules by providing menu combo with
+  these two items such as morning combo with toast and a cup of coffee.
+  If this combo strategy works well, it could be expanded with more
+  association rules as the following shows.}
+\item
+  \textbf{Rearrange the positions of different items in the right time.
+  For example, at brunch time (9:00-12:00) salesman or saleswoman could
+  place more First-peak Items and Two-peak Items while less Second-peak
+  Items.}
+\item
+  \textbf{Produce different items in the right time. This is similar
+  with the suggestion 1. Because First-peak Items and Two-peak Items
+  sell better at brunch time, it is sensible to produce more these items
+  and less Second-peak Items at brunch time.}
+\item
+  \textbf{Give a discount to First-peak Items or place them into combo
+  with other items in the afternoon to ensure that all of the items are
+  sold this day. Because the sales decrease after the first peak
+  according to the figure.}
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
